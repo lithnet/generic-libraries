@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>Lithnet.Common.ObjectModel</id>
+    <version>$version$</version>
+    <title>Lithnet Object Model Library</title>
+    <authors>ryan@lithiumblue.com</authors>
+    <licenseUrl>https://lithnetcommon.codeplex.com/license</licenseUrl>
+    <projectUrl>https://lithnetcommon.codeplex.com</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The Lithnet Object Model Library provides common support and reusable classes for various application types</description>
+    <tags></tags>
+  </metadata>
+</package>
