@@ -1,0 +1,52 @@
+﻿<Window x:Class="Lithnet.Common.Presentation.ProgressWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:p="clr-namespace:Lithnet.Common.Presentation"
+        Title="Operation in progress"
+        Height="249"
+        Width="388"
+        ShowInTaskbar="False"
+        p:WindowBehavior.HideCloseButton="True"
+        WindowStyle="ToolWindow"
+        WindowStartupLocation="CenterOwner">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="{Binding Path=OperationDescription}"
+                   Grid.Row="0" 
+                   TextWrapping="Wrap"
+                   Margin="20"/>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            
+            <ProgressBar HorizontalAlignment="Stretch"
+                         Margin="20"
+                         Grid.Column="0"
+                         Minimum="{Binding Path=MinValue}"
+                         Maximum="{Binding Path=MaxValue}"
+                         Value="{Binding Path=CurrentValue}" />
+   
+            <Button Content="Cancel"
+                    HorizontalAlignment="Center"
+                    Margin="5,0,5,0"
+                    VerticalAlignment="Center"
+                    Width="Auto"
+                    Grid.Column="1"
+                    Click="Button_Click"
+                    IsEnabled="{Binding Path=CanCancel}" />
+        </Grid>
+
+        <TextBlock Text="{Binding Path=ProgressDescription}"
+                   Grid.Row="2"
+                   TextWrapping="Wrap"
+                   Margin="20"/>
+    </Grid>
+</Window>
