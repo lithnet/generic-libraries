@@ -44,7 +44,7 @@ namespace Lithnet.Common.ObjectModel
 
             if (itemIndex == -1)
             {
-                throw new ArgumentOutOfRangeException("item");
+                throw new ArgumentOutOfRangeException(nameof(item));
             }
 
             if (itemIndex == 0)
@@ -69,7 +69,7 @@ namespace Lithnet.Common.ObjectModel
 
             if (itemIndex == -1)
             {
-                throw new ArgumentOutOfRangeException("item");
+                throw new ArgumentOutOfRangeException(nameof(item));
             }
 
             if (itemIndex == list.Count - 1)

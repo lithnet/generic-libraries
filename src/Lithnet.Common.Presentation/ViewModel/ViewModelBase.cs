@@ -163,7 +163,7 @@ namespace Lithnet.Common.Presentation
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             ViewModelBase vm = obj as ViewModelBase;
@@ -187,7 +187,7 @@ namespace Lithnet.Common.Presentation
         {
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             ViewModelBase vm = obj as ViewModelBase;

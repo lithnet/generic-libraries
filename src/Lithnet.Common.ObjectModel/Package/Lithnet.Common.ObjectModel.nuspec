@@ -5,8 +5,8 @@
     <version>$version$</version>
     <title>Lithnet Object Model Library</title>
     <authors>ryan@lithiumblue.com</authors>
-    <licenseUrl>https://lithnetcommon.codeplex.com/license</licenseUrl>
-    <projectUrl>https://lithnetcommon.codeplex.com</projectUrl>
+    <licenseUrl>https://github.com/lithnet/generic-libraries</licenseUrl>
+    <projectUrl>https://github.com/lithnet/generic-libraries</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The Lithnet Object Model Library provides common support and reusable classes for various application types</description>
     <tags></tags>

@@ -13,12 +13,12 @@ namespace Lithnet.Common.ObjectModel
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             if (group == null)
             {
-                throw new ArgumentNullException("group");
+                throw new ArgumentNullException(nameof(@group));
             }
 
             HashSet<IIdentifiedObject> itemGroup = UniqueIDCache.GetGroupCollection(group);
@@ -37,12 +37,12 @@ namespace Lithnet.Common.ObjectModel
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             if (group == null)
             {
-                throw new ArgumentNullException("group");
+                throw new ArgumentNullException(nameof(@group));
             }
 
             HashSet<IIdentifiedObject> itemGroup = UniqueIDCache.GetGroupCollection(group);
@@ -71,12 +71,12 @@ namespace Lithnet.Common.ObjectModel
         {
             if (id == null)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentNullException(nameof(id));
             }
 
             if (group == null)
             {
-                throw new ArgumentNullException("group");
+                throw new ArgumentNullException(nameof(@group));
             }
 
             HashSet<IIdentifiedObject> itemGroup = UniqueIDCache.GetGroupCollection(group);

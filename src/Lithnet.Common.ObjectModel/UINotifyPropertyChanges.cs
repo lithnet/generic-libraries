@@ -279,7 +279,7 @@ namespace Lithnet.Common.ObjectModel
         {
             if (inheritFrom == null)
             {
-                throw new ArgumentNullException("inheritFrom");
+                throw new ArgumentNullException(nameof(inheritFrom));
             }
 
             if (!this.inheritHasChangedFrom.Contains(inheritFrom))
@@ -309,7 +309,7 @@ namespace Lithnet.Common.ObjectModel
         {
             if (subscription == null)
             {
-                throw new ArgumentNullException("subscription");
+                throw new ArgumentNullException(nameof(subscription));
             }
 
             if (this.inheritHasChangedFrom.Contains(subscription))
@@ -322,7 +322,7 @@ namespace Lithnet.Common.ObjectModel
         {
             if (subscription == null)
             {
-                throw new ArgumentNullException("subscription");
+                throw new ArgumentNullException(nameof(subscription));
             }
 
             if (!this.inheritErrorsFrom.Contains(subscription))
@@ -336,7 +336,7 @@ namespace Lithnet.Common.ObjectModel
         {
             if (subscription == null)
             {
-                throw new ArgumentNullException("subscription");
+                throw new ArgumentNullException(nameof(subscription));
             }
 
             if (this.inheritErrorsFrom.Contains(subscription))

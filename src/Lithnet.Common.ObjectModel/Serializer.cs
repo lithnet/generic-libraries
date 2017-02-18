@@ -12,12 +12,17 @@ namespace Lithnet.Common.ObjectModel
     {
         public static T Read<T>(string filename)
         {
+            return Serializer.Read<T>(filename, null);
+        }
+
+        public static T Read<T>(string filename, IDataContractSurrogate surrogate)
+        {
             T deserialized;
 
             using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 XmlDictionaryReader xdr = XmlDictionaryReader.CreateTextReader(stream, new XmlDictionaryReaderQuotas() { MaxStringContentLength = 20971520 });
-                deserialized = Serializer.Read<T>(xdr);
+                deserialized = Serializer.Read<T>(xdr, surrogate);
                 xdr.Close();
                 stream.Close();
             }
@@ -25,15 +30,20 @@ namespace Lithnet.Common.ObjectModel
             return deserialized;
         }
 
-        public static T Read<T>(string filename, string nodeName, string nodeURI)
+        public static T Read<T>(string filename, string nodeName, string nodeUri)
+        {
+            return Serializer.Read<T>(filename, nodeName, nodeUri, null);
+        }
+
+        public static T Read<T>(string filename, string nodeName, string nodeUri, IDataContractSurrogate surrogate)
         {
             T deserialized;
 
             using (FileStream stream = new FileStream(filename, FileMode.Open, FileAccess.Read, FileShare.Read))
             {
                 XmlDictionaryReader xdr = XmlDictionaryReader.CreateTextReader(stream, new XmlDictionaryReaderQuotas() { MaxStringContentLength = 20971520 });
-                xdr.ReadToFollowing(nodeName, nodeURI);
-                deserialized = Serializer.Read<T>(xdr);
+                xdr.ReadToFollowing(nodeName, nodeUri);
+                deserialized = Serializer.Read<T>(xdr, surrogate);
                 xdr.Close();
                 stream.Close();
             }
@@ -43,29 +53,45 @@ namespace Lithnet.Common.ObjectModel
 
         public static T Read<T>(XmlDictionaryReader xdr)
         {
-            T deserialized;
+            return Serializer.Read<T>(xdr, null);
+        }
 
-            DataContractSerializer serializer = new DataContractSerializer(typeof(T));
-            deserialized = (T)serializer.ReadObject(xdr);
+        public static T Read<T>(XmlDictionaryReader xdr, IDataContractSurrogate surrogate)
+        {
+            DataContractSerializer serializer ;
 
-            return deserialized;
+            if (surrogate == null)
+            {
+                serializer = new DataContractSerializer(typeof(T));
+            }
+            else
+            {
+                serializer = new DataContractSerializer(typeof(T), null, int.MaxValue, false, false, surrogate);
+            }
+
+            return (T)serializer.ReadObject(xdr);
         }
 
         public static void Save<T>(string filename, T obj)
         {
-            Serializer.Save<T>(filename, obj, null);
+            Serializer.Save<T>(filename, obj, null, null);
         }
 
         public static void Save<T>(string filename, T obj, Dictionary<string, string> namespacePrefixes)
         {
+            Serializer.Save<T>(filename, obj, namespacePrefixes, null);
+        }
+
+        public static void Save<T>(string filename, T obj, Dictionary<string, string> namespacePrefixes, IDataContractSurrogate surrogate)
+        {
             if (string.IsNullOrWhiteSpace(filename))
             {
-                throw new ArgumentNullException("filename");
+                throw new ArgumentNullException(nameof(filename));
             }
 
             if (obj == null)
             {
-                throw new ArgumentNullException("obj");
+                throw new ArgumentNullException(nameof(obj));
             }
 
             using (FileStream stream = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite))
@@ -78,7 +104,16 @@ namespace Lithnet.Common.ObjectModel
 
                 XmlWriter writer = XmlWriter.Create(stream, writerSettings);
 
-                DataContractSerializer serializer = new DataContractSerializer(typeof(T));
+                DataContractSerializer serializer;
+
+                if (surrogate == null)
+                {
+                    serializer = new DataContractSerializer(typeof(T));
+                }
+                else
+                {
+                    serializer = new DataContractSerializer(typeof(T), null, int.MaxValue, false, false, surrogate);
+                }
 
                 if (namespacePrefixes == null || namespacePrefixes.Count == 0)
                 {

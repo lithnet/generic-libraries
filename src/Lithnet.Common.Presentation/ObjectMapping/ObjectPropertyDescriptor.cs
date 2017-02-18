@@ -60,7 +60,7 @@ namespace Lithnet.Common.Presentation
             ObjectMap map = component as ObjectMap;
 
             if (null == map)
-                throw new ArgumentException("component is not a CommandMap instance", "component");
+                throw new ArgumentException("component is not a CommandMap instance", nameof(component));
 
             return map[this.Name];
         }

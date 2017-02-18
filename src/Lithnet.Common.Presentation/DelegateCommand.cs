@@ -28,7 +28,7 @@ namespace Lithnet.Common.Presentation
         public DelegateCommand(Action<object> executeMethod, Predicate<object> canExecuteMethod)
         {
             if (null == executeMethod)
-                throw new ArgumentNullException("executeMethod");
+                throw new ArgumentNullException(nameof(executeMethod));
 
             this.executeMethod = executeMethod;
             this.canExecuteMethod = canExecuteMethod;

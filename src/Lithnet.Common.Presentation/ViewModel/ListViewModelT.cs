@@ -68,12 +68,12 @@ namespace Lithnet.Common.Presentation
         {
             if (collection == null)
             {
-                throw new ArgumentNullException("collection");
+                throw new ArgumentNullException(nameof(collection));
             }
 
             if (resolver == null)
             {
-                throw new ArgumentNullException("resolver");
+                throw new ArgumentNullException(nameof(resolver));
             }
 
             this.ViewModelResolver = resolver;
@@ -124,7 +124,7 @@ namespace Lithnet.Common.Presentation
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             this.RemoveViewModel(item);
@@ -135,7 +135,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             this.RemoveModel(model);
@@ -145,7 +145,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             this.AddViewModel(-1, model);
@@ -155,7 +155,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             this.Add(model);
@@ -173,7 +173,7 @@ namespace Lithnet.Common.Presentation
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             this.AddViewModel(item);
@@ -183,7 +183,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             TViewModel vm = this.GetViewModel(model);
@@ -195,7 +195,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             TViewModel vm = this.GetViewModel(model);
@@ -217,7 +217,7 @@ namespace Lithnet.Common.Presentation
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             return this.ViewModels.IndexOf(item);
@@ -227,7 +227,7 @@ namespace Lithnet.Common.Presentation
         {
             if (item == null)
             {
-                throw new ArgumentNullException("item");
+                throw new ArgumentNullException(nameof(item));
             }
 
             return this.Models.IndexOf(item);
@@ -298,7 +298,7 @@ namespace Lithnet.Common.Presentation
         {
             if (array == null)
             {
-                throw new ArgumentNullException("array");
+                throw new ArgumentNullException(nameof(array));
             }
 
             this.ViewModels.CopyTo(array, arrayIndex);
@@ -308,7 +308,7 @@ namespace Lithnet.Common.Presentation
         {
             if (array == null)
             {
-                throw new ArgumentNullException("array");
+                throw new ArgumentNullException(nameof(array));
             }
 
             this.Models.CopyTo(array, arrayIndex);
@@ -430,7 +430,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             TViewModel viewModel;
@@ -452,7 +452,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             if (index == -1)
@@ -488,7 +488,7 @@ namespace Lithnet.Common.Presentation
         {
             if (viewModel == null)
             {
-                throw new ArgumentNullException("viewModel");
+                throw new ArgumentNullException(nameof(viewModel));
             }
 
             this.AddViewModel(-1, viewModel);
@@ -498,7 +498,7 @@ namespace Lithnet.Common.Presentation
         {
             if (viewModel == null)
             {
-                throw new ArgumentNullException("viewModel");
+                throw new ArgumentNullException(nameof(viewModel));
             }
 
             if (viewModel.Model == null)
@@ -537,7 +537,7 @@ namespace Lithnet.Common.Presentation
         {
             if (model == null)
             {
-                throw new ArgumentNullException("model");
+                throw new ArgumentNullException(nameof(model));
             }
 
             TViewModel viewModel = this.GetViewModel(model);
@@ -548,7 +548,7 @@ namespace Lithnet.Common.Presentation
         {
             if (viewModel == null)
             {
-                throw new ArgumentNullException("viewModel");
+                throw new ArgumentNullException(nameof(viewModel));
             }
 
             if (this.Models.Contains(viewModel.Model))
