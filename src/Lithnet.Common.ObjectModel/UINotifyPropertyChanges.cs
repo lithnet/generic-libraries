@@ -11,17 +11,12 @@ namespace Lithnet.Common.ObjectModel
     using System.ComponentModel;
     using System.Linq;
     using System.Runtime.Serialization;
-    using System.Reflection;
-    using System.Diagnostics;
-    using System.Runtime.CompilerServices;
     using System.Text;
 
 
     /// <summary>
     /// Provides an abstract implementation of the INotifyPropertyChanged and IDataErrorInfo interfaces
     /// </summary>
-    //[System.Diagnostics.DebuggerStepThrough()]
-    //[DataContract(IsReference = true)]
     [DataContract]
     public abstract class UINotifyPropertyChanges : INotifyPropertyChanged, IDataErrorInfo
     {
@@ -44,7 +39,7 @@ namespace Lithnet.Common.ObjectModel
 
         public event PropertyChangedEventHandler OnErrorChanged;
 
-        public UINotifyPropertyChanges()
+        protected UINotifyPropertyChanges()
         {
             this.Initialize();
         }

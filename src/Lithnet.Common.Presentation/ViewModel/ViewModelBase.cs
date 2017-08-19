@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.ComponentModel;
 using Lithnet.Common.ObjectModel;
-using System.Runtime.Serialization;
-using System.Xml.Serialization;
-using System.IO;
 using System.Windows;
-using System.Xml;
 using System.Windows.Media.Imaging;
 
 namespace Lithnet.Common.Presentation
@@ -19,17 +14,22 @@ namespace Lithnet.Common.Presentation
 
         public static event PropertyChangedEventHandler ViewModelChanged;
 
+        public static event PropertyChangedEventHandler ViewModelIsDirtySet;
+
+        public event PropertyChangedEventHandler IsDirtySet;
+        
+        private HashSet<string> isDirtyPropertyNames;
+
         private BitmapSource displayIcon;
-
-        private ToolTipMap toolTips = new ToolTipMap();
-
-        private CommandMap commands = new CommandMap();
 
         private bool isCutCopyEnabled = false;
 
-        public ViewModelBase()
-            : base()
+        public bool IsDirty { get; set; }
+
+        protected ViewModelBase()
         {
+            this.isDirtyPropertyNames = new HashSet<string>(StringComparer.InvariantCultureIgnoreCase);
+
             this.IgnorePropertyHasChanged.Add("IsSelected");
             this.IgnorePropertyHasChanged.Add("IsExpanded");
             this.IgnorePropertyHasChanged.Add("PasteableTypes");
@@ -42,12 +42,32 @@ namespace Lithnet.Common.Presentation
             this.SetHasChangedOnPropertyChange = true;
             this.PasteableTypes = new List<Type>();
 
-            this.PropertyChanged += ViewModelBase_PropertyChanged;
+            this.PropertyChanged += this.ViewModelBase_PropertyChanged;
         }
 
         private void ViewModelBase_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             this.RaiseViewModelChanged(sender, e);
+
+            if (this.isDirtyPropertyNames.Contains(e.PropertyName))
+            {
+                if (!this.IsDirty)
+                {
+                    this.IsDirty = true;
+                    ViewModelBase.ViewModelIsDirtySet?.Invoke(this, e);
+                    this.IsDirtySet?.Invoke(this, e);
+                }
+            }
+        }
+
+        public void AddIsDirtyProperty(string propertyName)
+        {
+            this.isDirtyPropertyNames.Add(propertyName);
+        }
+
+        public void RemoveIsDirtyPropertyName(string propertyName)
+        {
+            this.isDirtyPropertyNames.Remove(propertyName);
         }
 
         protected void RaiseViewModelChanged(object sender, PropertyChangedEventArgs e)
@@ -83,10 +103,7 @@ namespace Lithnet.Common.Presentation
                     return null;
                 }
             }
-            set
-            {
-                this.displayIcon = value;
-            }
+            set => this.displayIcon = value;
         }
 
         public bool IsSelected { get; set; }
@@ -97,37 +114,15 @@ namespace Lithnet.Common.Presentation
 
         public ViewModelBase Parent { get; set; }
 
-        public CommandMap Commands
-        {
-            get
-            {
-                return this.commands;
-            }
-            protected set
-            {
-                this.commands = value;
-            }
-        }
+        public CommandMap Commands { get; protected set; } = new CommandMap();
 
-        public ToolTipMap ToolTips
-        {
-            get
-            {
-                return this.toolTips;
-            }
-        }
+        public ToolTipMap ToolTips { get; } = new ToolTipMap();
 
-        protected virtual string ClipBoardIdentifier
-        {
-            get
-            {
-                return null;
-            }
-        }
+        protected virtual string ClipBoardIdentifier => null;
 
         public virtual bool CanCopy()
         {
-            return isCutCopyEnabled;
+            return this.isCutCopyEnabled;
         }
 
         public virtual bool CanPaste()
@@ -137,7 +132,7 @@ namespace Lithnet.Common.Presentation
 
         public virtual bool CanCut()
         {
-            return isCutCopyEnabled;
+            return this.isCutCopyEnabled;
         }
 
         public virtual void Copy()
@@ -238,10 +233,6 @@ namespace Lithnet.Common.Presentation
                     {
                         return vm;
                     }
-                    //else
-                    //{
-                    //    System.Diagnostics.Debug.WriteLine("Not matched " + child.ToString());
-                   // }
                 }
 
                 return null;
