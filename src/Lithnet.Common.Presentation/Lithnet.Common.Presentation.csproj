@@ -73,6 +73,7 @@
     <Compile Include="ICollectionViewModel.cs" />
     <Compile Include="IIconProvider.cs" />
     <Compile Include="ListViewModelChangedEventArgs.cs" />
+    <Compile Include="ObjectMapping\MenuCommand.cs" />
     <Compile Include="ViewModel\MenuItems\MenuItemViewModelBase.cs" />
     <Compile Include="ViewModel\MenuItems\SeparatorViewModel.cs" />
     <Compile Include="ViewModel\MenuItems\MenuItemViewModel.cs" />

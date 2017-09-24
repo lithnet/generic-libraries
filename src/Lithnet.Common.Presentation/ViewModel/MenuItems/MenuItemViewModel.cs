@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -25,5 +26,9 @@ namespace Lithnet.Common.Presentation
         public string Header { get; set; }
 
         public ObservableCollection<MenuItemViewModelBase> MenuItems { get; private set; }
+
+        public KeyGesture Gesture { get; set; }
+
+        public string GestureText => this.Gesture?.GetDisplayStringForCulture(CultureInfo.CurrentUICulture);
     }
 }
